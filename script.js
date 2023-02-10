@@ -8,6 +8,10 @@ const main = document.getElementById("content");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 
+/**
+ * Receives the list of movies and assembles the element with image, title, votes and overview for each movie
+ * @param {*} movies 
+ */
 function showMovies(movies) {
 
     //clear main
@@ -38,3 +42,44 @@ function showMovies(movies) {
     });
 }
 
+getMovies(APIURL)
+
+
+/**
+ * Fetch movies from API and returns the result using fetch function. The results will be passed to shoMovies() function
+ * @param {*} url 
+ */
+async function getMovies(url) {
+
+    const resp = await fetch(url)
+    const respData = await resp.json();     // convert the response to json
+
+    showMovies(respData.results)
+}
+
+/**
+ * Used to return the color based on movie rating obtained from API. This color is used in CSS to choose the color of the movie rating text
+ * @param {*} vote 
+ * @returns 
+ */
+function getClassByRate(vote) {
+
+    if (vote >= 8) return "green"
+
+    else if (vote >= 5) return "orange"
+
+    else return "red"
+
+}
+
+
+form.addEventListener("submit", (e) => {
+
+    e.preventDefault()
+    const searchTerm = search.value
+
+    if (searchTerm) {
+        getMovies(SEARCHAPI + searchTerm)
+        search.value = ""
+    }
+})
