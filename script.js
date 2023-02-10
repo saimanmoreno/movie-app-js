@@ -42,9 +42,6 @@ function showMovies(movies) {
     });
 }
 
-getMovies(APIURL)
-
-
 /**
  * Fetch movies from API and returns the result using fetch function. The results will be passed to shoMovies() function
  * @param {*} url 
@@ -72,7 +69,9 @@ function getClassByRate(vote) {
 
 }
 
-
+/**
+ * Search movies event listener
+ */
 form.addEventListener("submit", (e) => {
 
     e.preventDefault()
@@ -83,3 +82,6 @@ form.addEventListener("submit", (e) => {
         search.value = ""
     }
 })
+
+// main function
+getMovies(APIURL)
